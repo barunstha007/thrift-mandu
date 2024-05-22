@@ -1,32 +1,33 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn('uuid')
+  /**
+   * this decorator will help to auto generate id for the table.
+   */
+  @PrimaryGeneratedColumn()
   id: string;
 
-  @Column({ nullable: true })
-  name: String;
+  @Column({ type: 'varchar', length: 30 })
+  name: string;
 
-  @Column({ nullable: true, unique: true })
-  slug: string;
+  @Column({ type: 'varchar', length: 15 })
+  username: string;
 
-  @Column({ nullable: true })
-  address: string;
-
-  @Column({ nullable: true, unique: true })
+  @Column({ type: 'varchar', length: 40 })
   email: string;
 
-  @Column({ nullable: true, unique: true })
-  phoneNumber: number;
+  @Column({ type: 'int' })
+  age: number;
 
-  @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  @Column({ type: 'varchar' })
+  password: string;
 
-  @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-    onUpdate: 'CURRENT_TIMESTAMP',
-  })
-  updatedAt: Date;
+  @Column({ type: 'enum', enum: ['m', 'f', 'u'] })
+  /**
+   * m - male
+   * f - female
+   * u - unspecified
+   */
+  gender: string;
 }
